@@ -5,6 +5,7 @@ import com.upgrad.bookmyconsultation.exception.InvalidInputException;
 import com.upgrad.bookmyconsultation.exception.SlotUnavailableException;
 import com.upgrad.bookmyconsultation.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sun.security.krb5.internal.APOptions;
 
 @RestController
 @RequestMapping("/appointments")
@@ -26,6 +28,12 @@ public class AppointmentController {
 	
 		//save the appointment details to the database and save the response from the method used
 		//return http response using ResponseEntity
+
+	@PostMapping(path = "")
+	public ResponseEntity<String> bookAppointment(@RequestBody Appointment appointment) throws InvalidInputException {
+		String response = appointmentService.appointment(appointment);
+		return new ResponseEntity(response,HttpStatus.OK);
+	}
 	
 	
 	
@@ -37,6 +45,10 @@ public class AppointmentController {
 		//save the response
 		//return the response as an http response
 	
-	
+	@GetMapping(path = "/{appointmentId}")
+	public ResponseEntity<Appointment> getAppointment(@PathVariable("appointmentId") String appointmentId ){
+		Appointment appointment =  appointmentService.getAppointment(appointmentId);
+		return new ResponseEntity<>(appointment,HttpStatus.OK);
+	}
 
 }
