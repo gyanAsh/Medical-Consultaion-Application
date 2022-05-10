@@ -57,7 +57,7 @@ public class AppointmentService {
 		//tip: use Optional.ofNullable(). Use orElseThrow() method when Optional.ofNullable() throws NULL
 	public Appointment getAppointment(String appointmentId){
 		Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
-		return Optional.ofNullable(appointment).get().orElseThrow(()->new ResourceUnAvailableException());
+		return Optional.ofNullable(appointment).get().orElseThrow(ResourceUnAvailableException::new);
 	}
 	
 	public List<Appointment> getAppointmentsForUser(String userId) {
