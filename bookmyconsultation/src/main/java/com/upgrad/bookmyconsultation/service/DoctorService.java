@@ -61,6 +61,7 @@ public class DoctorService {
 		//if doctor is found return the doctor
 		//else throw ResourceUnAvailableException
 	public Doctor getDoctor(String id) {
+		return doctorRepository.findById(id).orElseThrow(ResourceUnAvailableException::new);
 	}
 	
 
