@@ -39,7 +39,7 @@ public class AppointmentService {
 	public String appointment(Appointment appointment) throws SlotUnavailableException, InvalidInputException {
 		ValidationUtils.validate(appointment);
 		 Appointment existingAppointment = appointmentRepository.findByDoctorIdAndTimeSlotAndAppointmentDate(appointment.getDoctorId(), appointment.getTimeSlot(),appointment.getAppointmentDate());
-		 if(existingAppointment==null){
+		 if(existingAppointment!=null){
 			 throw new SlotUnavailableException();
 		 }
 
