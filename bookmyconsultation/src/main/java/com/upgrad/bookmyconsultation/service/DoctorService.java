@@ -44,13 +44,19 @@ public class DoctorService {
 		//Set the address in the doctor object with the response
 		//save the doctor object to the database
 		//return the doctor object
-	
+	public Doctor register(Doctor doctor) throws InvalidInputException {
+		Optional.ofNullable(doctor);
+		Optional.ofNullable(doctor.getAddress());
+		doctor.setId(UUID.randomUUID().toString());
+		Optional.ofNullable(doctor.getSpeciality());
+	}
 	
 	//create a method name getDoctor that returns object of type Doctor and has a String paramter called id
 		//find the doctor by id
 		//if doctor is found return the doctor
 		//else throw ResourceUnAvailableException
-
+	public Doctor getDoctor(String id) {
+	}
 	
 
 	public List<Doctor> getAllDoctorsWithFilters(String speciality) {
@@ -85,4 +91,8 @@ public class DoctorService {
 		return timeSlot;
 
 	}
+
+
+
+
 }

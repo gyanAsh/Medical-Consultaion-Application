@@ -42,10 +42,11 @@ public class RatingsService {
 		Doctor doctor = doctorRepository.findById(doctorId).get();
 
 		List<Rating> ratingList =  ratingsRepository.findByDoctorId(doctorId);
+		Integer sumOfRating=0;
+		ratingList.stream().map(ratingItem-> sumOfRating +ratingItem.getRating());
 		Integer ratingSize = ratingList.size();
 
-		Double currentDoctorRating = doctor.getRating();
-		Double newRating = (currentDoctorRating + rating.getRating())/ratingSize;
+		Double newRating = Double.valueOf(sumOfRating/ratingSize);
 		doctor.setRating(newRating);
 
 		doctorRepository.save(doctor);
