@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sun.security.krb5.internal.APOptions;
+//import sun.security.krb5.internal.APOptions;
 
 @RestController
 @RequestMapping("/appointments")
@@ -48,7 +48,7 @@ public class AppointmentController {
 	@GetMapping(path = "/{appointmentId}")
 	public ResponseEntity<Appointment> getAppointment(@PathVariable("appointmentId") String appointmentId ){
 		Appointment appointment =  appointmentService.getAppointment(appointmentId);
-		return new ResponseEntity<>(appointment,HttpStatus.OK);
+		return new ResponseEntity(appointment,HttpStatus.OK);
 	}
 
 }

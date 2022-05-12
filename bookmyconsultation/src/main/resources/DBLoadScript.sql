@@ -8,6 +8,15 @@ CREATE TABLE `address` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+address(
+id:varchar [255],
+address_line1:varchar [255],
+address_line2:varchar [255],
+city:varchar [255],
+postcode:varchar [255],
+state:varchar [255]
+)
+
 CREATE TABLE `appointment` (
   `appointment_id` varchar(255) NOT NULL,
   `appointment_date` varchar(255) DEFAULT NULL,
@@ -23,6 +32,21 @@ CREATE TABLE `appointment` (
   `user_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`appointment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+appointment(
+appointment_id:varchar [255],
+appointment_date:varchar [255],
+created_date:varchar [255],
+doctor_id:varchar [255],
+doctor_name:varchar [255],
+prior_medical_history:varchar [255],
+status:varchar [255],
+symptoms:varchar [255],
+time_slot:varchar [255],
+user_email_id:varchar [255],
+user_id:varchar [255],
+user_name:varchar [255]
+)
 
 CREATE TABLE `doctor` (
   `id` varchar(255) NOT NULL,
@@ -40,6 +64,22 @@ CREATE TABLE `doctor` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+
+doctor(
+id:varchar [255],
+college:varchar [255],
+dob:varchar [255],
+email_id:varchar [255],
+first_name:varchar [255],
+highest_qualification:varchar [255],
+last_name:varchar [255],
+mobile:varchar [255],
+pan:varchar [255],
+rating:double ,
+speciality:varchar [255],
+total_years_of_exp:int [11]
+)
+
 CREATE TABLE `rating` (
   `id` varchar(255) NOT NULL,
   `appointment_id` varchar(255) DEFAULT NULL,
@@ -48,6 +88,15 @@ CREATE TABLE `rating` (
   `rating` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+rating(
+id:varchar [255],
+appointment_id:varchar [255],
+comments:varchar [255],
+doctor_id:varchar [255],
+rating:int [11]
+)
 
 CREATE TABLE `user` (
   `email_id` varchar(255) NOT NULL,
@@ -61,6 +110,18 @@ CREATE TABLE `user` (
   PRIMARY KEY (`email_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+user(
+email_id:varchar [255],
+created_date:varchar [255],
+dob:varchar [255],
+first_name:varchar [255],
+last_name:varchar [255],
+mobile:varchar [255],
+password:varchar [255],
+salt:varchar [255]
+)
+
+
 CREATE TABLE `user_auth_token` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `access_token` varchar(1000) DEFAULT NULL,
@@ -73,6 +134,14 @@ CREATE TABLE `user_auth_token` (
   CONSTRAINT `FKsgoqgsfs8lfll3g069mei5l13` FOREIGN KEY (`user_id`) REFERENCES `user` (`email_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+user_auth_token(
+id:bigint [20],
+access_token:varchar [255],
+expires_at:datetime,
+login_at:datetime,
+logout_at:datetime,
+user_id:varchar [255]
+)
 
 
 INSERT INTO `doctor` (`id`,`college`,`dob`,`first_Name`,`last_Name`,`speciality`,`mobile`,`email_Id`,`highest_Qualification`,`rating`,`total_Years_Of_Exp`,`pan`) VALUES ("UUID-1","Bibendum Incorporated","2021-05-16","Amity","Stokes","GENERAL_PHYSICIAN","16750509 2135","Aliquam@musDonecdignissim.edu","MBBS",2,7,"YTV22PUB4TQ"),("UUID-2","Enim Consequat Purus LLC","2021-09-16","Blossom","Valentine","PULMONOLOGIST","16030728 0891","malesuada@lacusMaurisnon.com","MDS",5,20,"KAR90SJR5KQ"),("UUID-3","Risus Duis PC","2021-02-05","Nina","Gill","CARDIOLOGIST","16501009 0784","ipsum.leo.elementum@purusac.com","BDS",4,13,"JOP27DKW3XQ"),("UUID-4","Odio Vel Est Consulting","2022-03-28","Martha","Rivers","ENT","16771219 2348","dignissim.tempor@lorem.net","MBBS",2,49,"NIN10STB6ZJ"),("UUID-5","Justo Sit Amet Limited","2021-01-12","Judith","Best","ENT","16940301 8329","sit.amet@eulacus.ca","MDS",3,1,"GYX95GRG8FW"),("UUID-6","Nullam Enim Institute","2022-03-17","Sara","Carson","CARDIOLOGIST","16170217 4143","auctor@tinciduntnibhPhasellus.net","MDS",1,30,"OBL13JHJ9PW"),("UUID-7","Sed Diam Lorem LLP","2021-04-16","Zahir","Levine","GASTRO","16190627 3881","Aliquam.vulputate@Naminterdumenim.co.uk","MBBS",5,44,"VRV00DCP6NU"),("UUID-8","Phasellus Ornare Fusce LLC","2021-07-20","Cathleen","Bernard","DENTIST","16640729 9103","egestas.lacinia.Sed@Donecest.co.uk","MBBS",1,21,"YOS61WAA1ND"),("UUID-9","Ipsum Corporation","2021-01-02","Jamalia","Crane","PULMONOLOGIST","16970417 5513","nunc.In.at@MaurismagnaDuis.ca","MBBS",2,42,"XYC71FET6GO"),("UUID-10","Tellus Non Magna Associates","2022-04-03","Mia","Ewing","GASTRO","16470722 7619","ornare@MorbivehiculaPellentesque.co.uk","MDS",3,18,"NNC54LGX7OO");

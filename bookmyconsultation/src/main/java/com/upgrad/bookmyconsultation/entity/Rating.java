@@ -25,7 +25,6 @@ import java.util.UUID;
 @Data
 @Entity
 @NoArgsConstructor
-@Builder
 public class Rating{
     @Id
     private String id = UUID.randomUUID().toString();
