@@ -1,0 +1,12 @@
+.headerContainer{
+    background-color: purple;
+    height:70px;
+    padding:11px;
+    display: flex;
+}
+
+.logo{
+    background-color:#ff7f7f;
+    height:35px;
+    align-items: left;
+}
