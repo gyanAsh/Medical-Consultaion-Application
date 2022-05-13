@@ -9,7 +9,6 @@ const Header = () => {
             <img src={logo} alt="Service logo" className="logo" />
             <Button className="loginLogoutButton" variant="contained" color="primary">Login</Button>
             <Button className="loginLogoutButton" variant="contained" color="secondary">Logout</Button>
-
         </div>
     )
 }
