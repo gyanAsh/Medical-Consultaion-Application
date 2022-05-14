@@ -3,10 +3,16 @@
     height:70px;
     padding:11px;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .logo{
     background-color:#ff7f7f;
     height:35px;
-    align-items: left;
+    /* align-items: left; */
+}
+.loginLogoutButton{
+    height:40px;
 }
