@@ -6,7 +6,13 @@ const Login = () => {
     const [userPassword, setUserPassword] = useState("");
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log(`${userEmail} test print  ${userPassword}`);
+        const data = { userEmail, userPassword };
+        console.log(data);
+        fetch('http://localhost:8080/auth/login', {
+            method: 'POST',
+            header: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        }).then(()=> console.log("User data send"))
 
     }
     return (
