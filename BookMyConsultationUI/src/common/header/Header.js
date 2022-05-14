@@ -5,6 +5,7 @@ import './Header.css'
 import Login from '../../screens/login/Login';
 import PropTypes from 'prop-types';
 import {Tabs,Tab,Box,Button,Typography} from '@material-ui/core';
+import Register from '../../screens/register/Register';
 
 const Header = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -100,7 +101,7 @@ export function BasicTabs() {
         <Login/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <Register/>
       </TabPanel>
     </Box>
   );
