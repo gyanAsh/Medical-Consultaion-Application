@@ -8,22 +8,22 @@ const Login = () => {
         e.preventDefault();
         const data = { userEmail, userPassword };
         console.log(data);
-        fetch('http://localhost:8080/auth/login', {
+        fetch('/auth/login', {
             method: 'POST',
-            header: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
-        }).then(()=> console.log("User data send"))
+        }).then(()=> console.log("Login data send"))
 
     }
     return (
         <form onSubmit={handleSubmit}style={{display:"flex",flexDirection:"column",justifyContent:"center", gap:"20px"}}>
             <FormControl variant="standard">
                 <InputLabel htmlFor="email">Email</InputLabel>
-                <Input id="email" onChange={e => setUserEmail(e.target.value)} />
+                <Input type="email" id="email" onChange={e => setUserEmail(e.target.value)} />
             </FormControl>
             <FormControl variant="standard">
                 <InputLabel htmlFor="password">Password</InputLabel>
-                <Input id="password" onChange={e => setUserPassword(e.target.value)} />
+                <Input type="password" id="password" onChange={e => setUserPassword(e.target.value)} />
             </FormControl>
             <Button
                 variant="contained"
