@@ -24,27 +24,27 @@ const Register = () => {
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "20px" }}>
             <FormControl variant="standard">
                 <InputLabel htmlFor="firstName">First Name</InputLabel>
-                <Input id="firstName" onChange={e => setFirstName(e.target.value)} />
+                <Input required="true" id="firstName" onChange={e => setFirstName(e.target.value)} />
             </FormControl>
             <FormControl variant="standard">
                 <InputLabel htmlFor="lastName">Last Name</InputLabel>
-                <Input id="lastName" onChange={e => setLastName(e.target.value)} />
+                <Input required="true" id="lastName" onChange={e => setLastName(e.target.value)} />
             </FormControl>
             <FormControl variant="standard">
                 <InputLabel htmlFor="dob">Date of Birth</InputLabel>
-                <Input id="dob" onChange={e => setDob(e.target.value)} />
+                <Input required="true" id="dob" onChange={e => setDob(e.target.value)} />
             </FormControl>
             <FormControl variant="standard">
                 <InputLabel htmlFor="emailId">Email Id</InputLabel>
-                <Input type="email" id="emailId" onChange={e => setEmail(e.target.value)} />
+                <Input required="true" type="email" id="emailId" onChange={e => setEmail(e.target.value)} />
             </FormControl>
             <FormControl variant="standard">
                 <InputLabel htmlFor="password">Password</InputLabel>
-                <Input type="password" id="password" onChange={e => setPassword(e.target.value)} />
+                <Input required="true" type="password" id="password" onChange={e => setPassword(e.target.value)} />
             </FormControl>
             <FormControl variant="standard">
                 <InputLabel htmlFor="mobile">Mobile No.</InputLabel>
-                <Input type="number" id="mobile" onChange={e => setMobile(e.target.value)} />
+                <Input required="true" type="number" id="mobile" onChange={e => setMobile(e.target.value)} />
             </FormControl>
             <Button
                 variant="contained"
