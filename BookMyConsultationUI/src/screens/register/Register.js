@@ -1,10 +1,10 @@
 import React, { useState,useEffect } from 'react';
-import { FormControl, InputLabel, Input, Button,FormHelperText } from '@material-ui/core'
+import { FormControl, InputLabel, Input, Button,FormHelperText,Typography } from '@material-ui/core'
 
 const Register = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    
+
     const [mobile, setMobile] = useState("");
     const [userMobileErrMsg,setUserMobileErrMsg] = useState("");
     const [mobileErr, setMobileErr] = useState(false);
@@ -14,6 +14,8 @@ const Register = () => {
     const [emailId, setEmail] = useState("");
     const [userEmailErrMsg, setUserEmailErrMsg] = useState("");
     const [EmailErr, setEmailErr] = useState(false);
+
+    const [registerSuccess, setRegisterSuccess] = useState(false);
 
     useEffect(() => {
         setUserEmailErrMsg("");
@@ -41,17 +43,23 @@ const Register = () => {
         }
 
         const data = { firstName, lastName, mobile, password, emailId };
-        console.log({ data });
         fetch('/users/register', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
-        }).then(() => console.log("User data send")).catch(e => console.log(`Error: ${e.message}`));
+        }).then((res) => {
+            if (res.status !== 200)
+                throw new Error("Registration Unsuccessful");
+            
+            setRegisterSuccess(true);
+        }).catch(e => {
+            console.log(`Error: ${e.message}`)
+        });
 
     }
     return (
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "20px" }}>
-            <FormControl required="true" variant="standard">
+            {!registerSuccess && ( <><FormControl required="true" variant="standard">
                 <InputLabel htmlFor="firstName">First Name</InputLabel>
                 <Input id="firstName" onChange={e => setFirstName(e.target.value)} />
             </FormControl>
@@ -80,7 +88,13 @@ const Register = () => {
                 className="button-block"
             >
                 REGISTER
-            </Button>
+                </Button></>)}
+            {registerSuccess && (<>
+                <Typography variant="h5" align="center"
+                    style={{ padding:"50px 0px" }} >
+                    'Registration Successful'
+                </Typography>
+            </>)}
         </form>
     )
 }
