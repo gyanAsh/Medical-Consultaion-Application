@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,createContext} from 'react';
 import logo from '../../assets/logo.jpeg';
 import Modal from 'react-modal';
 import './Header.css'
@@ -7,11 +7,19 @@ import PropTypes from 'prop-types';
 import {Tabs,Tab,Box,Button,Typography} from '@material-ui/core';
 import Register from '../../screens/register/Register';
 
+export const AuthContext = createContext({close:()=>{},login:()=>{}})
+
 const Header = () => {
+
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [userLogin, setUserLogin] = useState(false);
 
     const openModal = () => setModalIsOpen(true);
     const closeModal = () => setModalIsOpen(false);
+  
+  const login = () => setUserLogin(true);
+  const logout = () => setUserLogin(false);
+
     
     const customStyles = {
         content: {
@@ -27,19 +35,23 @@ const Header = () => {
 
     return (
         <div className="headerContainer">
-            <img src={logo} alt="Service logo" className="logo" />
-            <Button className="loginLogoutButton" variant="contained" color="primary" onClick={openModal}>Login</Button>
+        <img src={logo} alt="Service logo" className="logo" />
+            { !userLogin &&<><Button className="loginLogoutButton" variant="contained" color="primary" onClick={openModal}>Login</Button>
             <Modal
                 isOpen={modalIsOpen}
                 onAfterOpen={openModal}
                 onRequestClose={closeModal}
                 style={customStyles}
                 contentLabel="Login/Register Tab"
+                ariaHideApp={false}
             >
-                <Typography style={{ backgroundColor: "purple", color: "white", padding: "30px 80px 30px 5px " }} variant="h5">Authentication</Typography>
-                <BasicTabs/>
-            </Modal>
-            {/* <Button className="loginLogoutButton" variant="contained" color="secondary">Logout</Button> */}
+          <Typography style={{ backgroundColor: "purple", color: "white", padding: "30px 80px 30px 5px " }} variant="h5">Authentication</Typography>
+          <AuthContext.Provider value={{ close: closeModal, login: login }}>
+            <BasicTabs />
+          </AuthContext.Provider>
+        </Modal></>}
+        
+            {userLogin && <Button onClick={logout} className="loginLogoutButton" variant="contained" color="secondary">Logout</Button>}
         </div>
     )
 }
