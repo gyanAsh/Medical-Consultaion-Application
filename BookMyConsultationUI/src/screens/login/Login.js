@@ -21,13 +21,12 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!userEmail.includes('@')) {
+        if (!userEmail.includes('@') || userEmail.endsWith('@')) {
             setUserEmailErrMsg("Enter valid Email");
             setEmailErr(true);
             return;
         }
 
-        const data = { userEmail, userPassword };
         fetch(api, {
             method: 'POST',
             headers: {
@@ -65,7 +64,7 @@ const Login = () => {
                 type="submit"
                 className="button-block"
                 >
-            Login
+            LOGIN
             </Button>
         </form>
     )

@@ -1,15 +1,45 @@
-import React, { useState } from 'react';
-import { FormControl, InputLabel, Input, Button } from '@material-ui/core'
+import React, { useState,useEffect } from 'react';
+import { FormControl, InputLabel, Input, Button,FormHelperText } from '@material-ui/core'
 
 const Register = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
+    
     const [mobile, setMobile] = useState("");
+    const [userMobileErrMsg,setUserMobileErrMsg] = useState("");
+    const [mobileErr, setMobileErr] = useState(false);
+    
     const [password, setPassword] = useState("");
+
     const [emailId, setEmail] = useState("");
+    const [userEmailErrMsg, setUserEmailErrMsg] = useState("");
+    const [EmailErr, setEmailErr] = useState(false);
+
+    useEffect(() => {
+        setUserEmailErrMsg("");
+        setEmailErr(false);
+    }, [emailId])
+
+    useEffect(() => {
+        setUserMobileErrMsg("");
+        setMobileErr(false);
+    },[mobile])
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (!emailId.includes('@') || emailId.endsWith('@')) {
+            setUserEmailErrMsg("Enter valid Email");
+            setEmailErr(true);
+            return;
+        }
+        if (mobile.length !== 10) {
+            setUserMobileErrMsg("Enter valid mobile number");
+            setMobileErr(true);
+            return;
+        }
+
         const data = { firstName, lastName, mobile, password, emailId };
         console.log({ data });
         fetch('/users/register', {
@@ -31,7 +61,8 @@ const Register = () => {
             </FormControl>
             <FormControl required="true" variant="standard">
                 <InputLabel htmlFor="emailId">Email Id</InputLabel>
-                <Input type="email" id="emailId" onChange={e => setEmail(e.target.value)} />
+                <Input id="emailId" onChange={e => setEmail(e.target.value)} />
+                <FormHelperText error={EmailErr}>{userEmailErrMsg}</FormHelperText>
             </FormControl>
             <FormControl required="true" variant="standard">
                 <InputLabel htmlFor="password">Password</InputLabel>
@@ -40,6 +71,7 @@ const Register = () => {
             <FormControl required="true" variant="standard">
                 <InputLabel htmlFor="mobile">Mobile No.</InputLabel>
                 <Input type="number" id="mobile" onChange={e => setMobile(e.target.value)} />
+                <FormHelperText error={mobileErr}>{userMobileErrMsg}</FormHelperText>
             </FormControl>
             <Button
                 variant="contained"
@@ -47,7 +79,7 @@ const Register = () => {
                 type="submit"
                 className="button-block"
             >
-                Login
+                REGISTER
             </Button>
         </form>
     )
