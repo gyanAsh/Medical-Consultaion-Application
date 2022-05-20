@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { Box, Paper, FormControl, Select, MenuItem, Typography } from '@material-ui/core';
+import { Box, Paper, FormControl, Select, MenuItem, Typography,Button } from '@material-ui/core';
 import {Rating} from '@material-ui/lab'
 
 const DoctorList = () => {
@@ -33,12 +33,12 @@ const DoctorList = () => {
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 12,
+                    gap: 15,
                     m:3,
                     '& > :not(style)': {
                     m: 3,
                     width: 528,
-                    height: 128,
+                    height: 140,
                     },
                 }}
             >
@@ -54,6 +54,10 @@ const DoctorList = () => {
                             Rating :
                         <Rating name="half-rating" defaultValue={doctor.rating} precision={0.5} readOnly />
                         </Typography>
+                        <Box sx={{ width: '100%',display: 'flex',gap: 15,m:1 }}  >
+                            <Button style={{minWidth:"45%",color:"white"}} variant="contained" color="primary">Book Appointment</Button>
+                            <Button style={{ minWidth: "45%",backgroundColor:"green", color:"white" }} variant="contained">View Details</Button>
+                        </Box>
                     </Paper>
                 )) }
             </Box>
