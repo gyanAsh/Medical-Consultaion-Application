@@ -12,28 +12,24 @@ export const AuthContext = createContext({close:()=>{},token:()=>{}})
 const Header = ({loggedInToken,setLoggedInToken}) => {
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
-  // const [userLogin, setUserLogin] = useState(false);
-  // console.log("ddddd" + loggedInToken);
-  // if ( loggedInToken!= null) {
-    // setModalIsOpen(false);
-    // setUserLogin(true);
-    // return;
-    // closeModal();
-    // login();
-    // return;
-  // }
+
 
     const openModal = () => setModalIsOpen(true);
-    const closeModal = () => setModalIsOpen(false);
+  const closeModal = () => setModalIsOpen(false);
   
-  // const login = () => {
-
-  //   setUserLogin(true);
-  // }
-  // const logout = () => setUserLogin(false);
+    const logoutApi = 'http://localhost:8080/auth/logout';
   const logout = () => {                                         // LOGOUT FUNCTION IS NOT IMPLEMENTED YET
-    // fetch()
-    setLoggedInToken(null);
+    fetch(logoutApi, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${loggedInToken}`
+      }
+    }).then(res => {
+      if (res.status !== 200)
+        throw new Error(`Error: ${res.status}`);
+      sessionStorage.clear();
+      setLoggedInToken(null);
+    }).catch(err=> console.log(err.message));
 };
   
   
