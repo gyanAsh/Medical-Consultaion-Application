@@ -80,8 +80,8 @@ const BookAppointment = ({ doc, loggedInToken }) => {
   }
   return (
 
-    <Card style={{ width: 650 }}>
-      <Typography style={{ backgroundColor: "purple", color: "white", padding: "30px 80px 30px 5px " }} variant="h5">Book an Appointment</Typography>
+    <Card style={{ width: 650}}>
+      <Typography style={{height:70, backgroundColor: "purple", color: "white", padding: "11px",display: "flex",alignItems: "center"}} variant="h5">Book an Appointment</Typography>
       <form onSubmit={handleBookAppointment}>
       
       <CardContent style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 20 }}>

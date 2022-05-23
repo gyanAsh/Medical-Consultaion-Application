@@ -3,17 +3,25 @@ import { Box, Paper, FormControl, Select, MenuItem, Typography,Button } from '@m
 import { Rating } from '@material-ui/lab'
 import Modal from 'react-modal';
 import BookAppointment from './BookAppointment';
+import DoctorDetails from './DoctorDetails';
 
-const DoctorList = ({loggedInToken,loggedInUser}) => {
+const DoctorList = ({loggedInToken}) => {
     const [speciality, setSpeciality] = useState('');
     const [specialists, setSpecialists] = useState([]);
     const [doctorsList, setDoctorsList] = useState([]);
 
     const [modalIsOpenBookAppointment, setModalIsOpenBookAppointment] = useState(false);
-    const [bookAppointment, setBookAppointment] = useState({id:"25"});
+    const [bookAppointment, setBookAppointment] = useState({});
 
     const openModalBookAppointment = () => setModalIsOpenBookAppointment(true);
     const closeModalBookAppointment = () => setModalIsOpenBookAppointment(false);
+
+    const [modalIsOpenViewDetail, setModalIsOpenViewDetail] = useState(false);
+    const [viewDetail, setViewDetail] = useState({});
+
+    const openModalViewDetail = () => setModalIsOpenViewDetail(true);
+    const closeModalViewDetail =()=> setModalIsOpenViewDetail(false);
+    
         
     useEffect(() => {
         getDoctors();
@@ -52,7 +60,7 @@ const DoctorList = ({loggedInToken,loggedInUser}) => {
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 15,
+                    // gap: 15,
                     m:3,
                     '& > :not(style)': {
                     m: 3,
@@ -62,7 +70,7 @@ const DoctorList = ({loggedInToken,loggedInUser}) => {
                 }}
             >
                 {doctorsList.filter(doctorObj => doctorObj.speciality.includes(speciality)).map(doctor => (
-                    <Paper key={doctor.id} elevation={5} style={{padding:20}} >
+                    <Paper key={doctor.id} elevation={5} align="left" style={{margin:15,padding:20,cursor: "pointer"}} >
                         <Typography variant="h6" style={{paddingBottom:10}}>
                             Doctor Name : {doctor.firstName} {doctor.lastName}
                         </Typography>
@@ -75,7 +83,7 @@ const DoctorList = ({loggedInToken,loggedInUser}) => {
                         </Typography>
                         <Box sx={{ width: '100%' }}  >
                             <Button onClick={() => { setBookAppointment(doctor); openModalBookAppointment()}} style={{ minWidth: "40%", margin: "10px", color: "white" }} variant="contained" color="primary">Book Appointment</Button>
-                            <Button style={{ minWidth: "40%",margin:"10px",backgroundColor:"green", color:"white" }} variant="contained">View Details</Button>
+                            <Button onClick={() => { setViewDetail(doctor); openModalViewDetail()}} style={{ minWidth: "40%",margin:"10px",backgroundColor:"green", color:"white" }} variant="contained">View Details</Button>
                         </Box>
                     </Paper>
                 ))}
@@ -87,7 +95,17 @@ const DoctorList = ({loggedInToken,loggedInUser}) => {
                             contentLabel="Booking Appointment"
                                 ariaHideApp={false}
                             >
-                                <BookAppointment  doc={bookAppointment} loggedInToken={loggedInToken} loggedInUser={loggedInUser} />
+                                <BookAppointment  doc={bookAppointment} loggedInToken={loggedInToken}  />
+                </Modal>
+                <Modal
+                            isOpen={modalIsOpenViewDetail}
+                            onAfterOpen={openModalViewDetail}
+                            onRequestClose={closeModalViewDetail}
+                            style={customStyles}
+                            contentLabel="View Details"
+                                ariaHideApp={false}
+                            >
+                                <DoctorDetails  doc={viewDetail} />
                 </Modal>
             </Box>
         </div>
