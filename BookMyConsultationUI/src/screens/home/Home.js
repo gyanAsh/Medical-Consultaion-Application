@@ -1,15 +1,20 @@
-import React,{useState} from 'react';
+import React,{useState,createContext,} from 'react';
 import Header from '../../common/header/Header';
 import DoctorList from '../../screens/doctorList/DoctorList';
 import Appointment from '../../screens/appointment/Appointment';
 import PropTypes from 'prop-types'
-import {Tabs,Tab,Box,Typography} from '@material-ui/core';
+import { Tabs, Tab, Box, Typography } from '@material-ui/core';
+
+export const UserDetail = createContext({ userInfo: {}, setUserInfo: () => { }})
 
 const Home = () => {
+  const [loggedInToken, setLoggedInToken] = useState(
+    sessionStorage.getItem('access-token')
+  )
     return (
         <div>
-            <Header />
-            <BasicTabs/>
+        <Header loggedInToken={loggedInToken} setLoggedInToken={setLoggedInToken} />
+          <BasicTabs loggedInToken={loggedInToken} />
         </div>
     )
 }
@@ -50,7 +55,7 @@ const TabPanel=props=> {
     };
   }
   
-  export function BasicTabs() {
+  export function BasicTabs({loggedInToken}) {
     const [value, setValue] = useState(0);
   
     const handleChange = (event, newValue) => {
@@ -66,10 +71,10 @@ const TabPanel=props=> {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <DoctorList/>
+          <DoctorList loggedInToken={loggedInToken} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Appointment/>
+          <Appointment loggedInToken={loggedInToken} />
         </TabPanel>
       </Box>
     );

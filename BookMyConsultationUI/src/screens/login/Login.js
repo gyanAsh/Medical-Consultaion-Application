@@ -35,13 +35,12 @@ const Login = () => {
         }).then(res => {
             if (res.status !== 200)
                 throw new Error(res.json());
-            
             return res.json();
         }).then(data => {
-                const accessToken = data.accessToken;
-                const id = data.id;
-                localStorage.setItem(id, accessToken);
-                auth.login();
+            const accessToken = data.accessToken;
+            sessionStorage.setItem('consultation-user', JSON.stringify(data));
+            sessionStorage.setItem("access-token", accessToken);
+            auth.token(accessToken);
                 auth.close();
             }).catch(err => console.log(`Error: ${err.message}`));
 

@@ -7,18 +7,37 @@ import PropTypes from 'prop-types';
 import {Tabs,Tab,Box,Button,Typography} from '@material-ui/core';
 import Register from '../../screens/register/Register';
 
-export const AuthContext = createContext({close:()=>{},login:()=>{}})
+export const AuthContext = createContext({close:()=>{},token:()=>{}})
 
-const Header = () => {
+const Header = ({loggedInToken,setLoggedInToken}) => {
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [userLogin, setUserLogin] = useState(false);
+  // const [userLogin, setUserLogin] = useState(false);
+  // console.log("ddddd" + loggedInToken);
+  // if ( loggedInToken!= null) {
+    // setModalIsOpen(false);
+    // setUserLogin(true);
+    // return;
+    // closeModal();
+    // login();
+    // return;
+  // }
 
     const openModal = () => setModalIsOpen(true);
     const closeModal = () => setModalIsOpen(false);
   
-  const login = () => setUserLogin(true);
-  const logout = () => setUserLogin(false);
+  // const login = () => {
+
+  //   setUserLogin(true);
+  // }
+  // const logout = () => setUserLogin(false);
+  const logout = () => {                                         // LOGOUT FUNCTION IS NOT IMPLEMENTED YET
+    // fetch()
+    setLoggedInToken(null);
+};
+  
+  
+  const setToken = (data) => setLoggedInToken(data);
 
     
     const customStyles = {
@@ -36,7 +55,7 @@ const Header = () => {
     return (
         <div className="headerContainer">
         <img src={logo} alt="Service logo" className="logo" />
-            { !userLogin &&<><Button className="loginLogoutButton" variant="contained" color="primary" onClick={openModal}>Login</Button>
+            { !(loggedInToken!=null) &&<><Button className="loginLogoutButton" variant="contained" color="primary" onClick={openModal}>Login</Button>
             <Modal
                 isOpen={modalIsOpen}
                 onAfterOpen={openModal}
@@ -46,12 +65,12 @@ const Header = () => {
                 ariaHideApp={false}
             >
           <Typography style={{ backgroundColor: "purple", color: "white", padding: "30px 80px 30px 5px " }} variant="h5">Authentication</Typography>
-          <AuthContext.Provider value={{ close: closeModal, login: login }}>
+          <AuthContext.Provider value={{ close: closeModal, token: setToken}}>
             <BasicTabs />
           </AuthContext.Provider>
         </Modal></>}
         
-            {userLogin && <Button onClick={logout} className="loginLogoutButton" variant="contained" color="secondary">Logout</Button>}
+            {(loggedInToken!=null) && <Button onClick={logout} className="loginLogoutButton" variant="contained" color="secondary">Logout</Button>}
         </div>
     )
 }

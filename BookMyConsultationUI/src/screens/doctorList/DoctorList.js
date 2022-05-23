@@ -1,15 +1,23 @@
 import React, { useState,useEffect } from 'react';
 import { Box, Paper, FormControl, Select, MenuItem, Typography,Button } from '@material-ui/core';
-import {Rating} from '@material-ui/lab'
+import { Rating } from '@material-ui/lab'
+import Modal from 'react-modal';
+import BookAppointment from './BookAppointment';
 
-const DoctorList = () => {
+const DoctorList = ({loggedInToken,loggedInUser}) => {
     const [speciality, setSpeciality] = useState('');
     const [specialists, setSpecialists] = useState([]);
     const [doctorsList, setDoctorsList] = useState([]);
+
+    const [modalIsOpenBookAppointment, setModalIsOpenBookAppointment] = useState(false);
+    const [bookAppointment, setBookAppointment] = useState({id:"25"});
+
+    const openModalBookAppointment = () => setModalIsOpenBookAppointment(true);
+    const closeModalBookAppointment = () => setModalIsOpenBookAppointment(false);
         
     useEffect(() => {
-        // getDoctors();
-        // getSpecialties();
+        getDoctors();
+        getSpecialties();
     }, [])
     
 
@@ -23,12 +31,23 @@ const DoctorList = () => {
     const getSpecialties = () => {
         fetch('/doctors/speciality').then(res => res.json()).then(data => setSpecialists(data)).catch(err => console.log(err));
     }
+    const customStyles = {
+        content: {
+          top: '50%',
+          left: '50%',
+          right: 'auto',
+            bottom: 'auto',
+          padding: '0',
+          marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+        },
+      };
     
     return (
         <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
             <Typography variant="h6">Select Speciality :</Typography>
             <BasicSelect handleChange={handleChange} speciality={speciality} specialists={specialists}/>
-            {speciality}
+            {/* {speciality} */}
             <Box
                 sx={{
                     display: 'flex',
@@ -37,7 +56,7 @@ const DoctorList = () => {
                     m:3,
                     '& > :not(style)': {
                     m: 3,
-                    width: 528,
+                    width: 540,
                     height: 140,
                     },
                 }}
@@ -47,19 +66,29 @@ const DoctorList = () => {
                         <Typography variant="h6" style={{paddingBottom:10}}>
                             Doctor Name : {doctor.firstName} {doctor.lastName}
                         </Typography>
-                        <Typography>
+                        <Typography sx={{ fontSize: 14 }}>
                             Speciality : {doctor.speciality}
                         </Typography>
-                        <Typography>
+                        <Typography sx={{ fontSize: 14 }}>
                             Rating :
                         <Rating name="half-rating" defaultValue={doctor.rating} precision={0.5} readOnly />
                         </Typography>
-                        <Box sx={{ width: '100%',display: 'flex',gap: 15,m:1 }}  >
-                            <Button style={{minWidth:"45%",color:"white"}} variant="contained" color="primary">Book Appointment</Button>
-                            <Button style={{ minWidth: "45%",backgroundColor:"green", color:"white" }} variant="contained">View Details</Button>
+                        <Box sx={{ width: '100%' }}  >
+                            <Button onClick={() => { setBookAppointment(doctor); openModalBookAppointment()}} style={{ minWidth: "40%", margin: "10px", color: "white" }} variant="contained" color="primary">Book Appointment</Button>
+                            <Button style={{ minWidth: "40%",margin:"10px",backgroundColor:"green", color:"white" }} variant="contained">View Details</Button>
                         </Box>
                     </Paper>
-                )) }
+                ))}
+                <Modal
+                            isOpen={modalIsOpenBookAppointment}
+                            onAfterOpen={openModalBookAppointment}
+                            onRequestClose={closeModalBookAppointment}
+                            style={customStyles}
+                            contentLabel="Booking Appointment"
+                                ariaHideApp={false}
+                            >
+                                <BookAppointment  doc={bookAppointment} loggedInToken={loggedInToken} loggedInUser={loggedInUser} />
+                </Modal>
             </Box>
         </div>
     )
