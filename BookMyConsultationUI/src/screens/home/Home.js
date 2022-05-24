@@ -1,11 +1,10 @@
-import React,{useState,createContext,} from 'react';
+import React,{useState} from 'react';
 import Header from '../../common/header/Header';
 import DoctorList from '../../screens/doctorList/DoctorList';
 import Appointment from '../../screens/appointment/Appointment';
 import PropTypes from 'prop-types'
 import { Tabs, Tab, Box, Typography } from '@material-ui/core';
 
-export const UserDetail = createContext({ userInfo: {}, setUserInfo: () => { }})
 
 const Home = () => {
   const [loggedInToken, setLoggedInToken] = useState(
@@ -14,7 +13,7 @@ const Home = () => {
     return (
         <div>
         <Header loggedInToken={loggedInToken} setLoggedInToken={setLoggedInToken} />
-          <BasicTabs loggedInToken={loggedInToken} />
+          <BasicTabs loggedInToken={loggedInToken}  />
         </div>
     )
 }
@@ -74,7 +73,7 @@ const TabPanel=props=> {
           <DoctorList loggedInToken={loggedInToken} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Appointment loggedInToken={loggedInToken} />
+          <Appointment loggedInToken={loggedInToken}/>
         </TabPanel>
       </Box>
     );

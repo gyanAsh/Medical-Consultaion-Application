@@ -70,7 +70,7 @@ const BookAppointment = ({ doc, loggedInToken }) => {
 
       return res.text();
     }).then(data => {
-      sessionStorage.setItem('appointmentId',data);                                
+      console.log(`New Appointment Id: ${data}`);
     }).catch(err => {
       alert(err.message);
       console.log(err);

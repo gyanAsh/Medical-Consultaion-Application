@@ -95,7 +95,7 @@ const DoctorList = ({loggedInToken}) => {
                             contentLabel="Booking Appointment"
                                 ariaHideApp={false}
                             >
-                                <BookAppointment  doc={bookAppointment} loggedInToken={loggedInToken}  />
+                                <BookAppointment  doc={bookAppointment} loggedInToken={loggedInToken} />
                 </Modal>
                 <Modal
                             isOpen={modalIsOpenViewDetail}
