@@ -32,7 +32,7 @@ public class AppointmentController {
 	@PostMapping(path = "")
 	public ResponseEntity<String> bookAppointment(@RequestBody Appointment appointment) throws InvalidInputException {
 		String response = appointmentService.appointment(appointment);
-		return new ResponseEntity(response,HttpStatus.OK);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
 	

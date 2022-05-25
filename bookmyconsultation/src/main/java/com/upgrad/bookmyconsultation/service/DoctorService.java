@@ -51,6 +51,7 @@ public class DoctorService {
 			doctor.setSpeciality(Speciality.GENERAL_PHYSICIAN);
 		}
 		Address address = doctor.getAddress();
+		address.setId(doctor.getId());
 		address = addressRepository.save(address);
 		doctor.setAddress(address);
 		return doctorRepository.save(doctor);
