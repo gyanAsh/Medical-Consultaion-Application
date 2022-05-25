@@ -18,7 +18,7 @@ const Header = ({loggedInToken,setLoggedInToken}) => {
   const closeModal = () => setModalIsOpen(false);
   
     const logoutApi = 'http://localhost:8080/auth/logout';
-  const logout = () => {                                         // LOGOUT FUNCTION IS NOT IMPLEMENTED YET
+  const logout = () => {                                         
     fetch(logoutApi, {
       method: 'POST',
       headers: {

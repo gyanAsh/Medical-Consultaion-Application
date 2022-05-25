@@ -28,6 +28,9 @@ const DoctorList = ({loggedInToken}) => {
         getSpecialties();
     }, [])
     
+    useEffect(() => {
+        getSpecialtyDoctor();
+    },[speciality])
 
     const handleChange = (event) => {
         setSpeciality(event.target.value);
@@ -38,6 +41,9 @@ const DoctorList = ({loggedInToken}) => {
     }
     const getSpecialties = () => {
         fetch('/doctors/speciality').then(res => res.json()).then(data => setSpecialists(data)).catch(err => console.log(err));
+    }
+    const getSpecialtyDoctor = () => {
+        fetch(`doctors?speciality=${speciality}`).then(res => res.json()).then(data => setDoctorsList(data)).catch(err => console.log(err));
     }
     const customStyles = {
         content: {
@@ -55,7 +61,6 @@ const DoctorList = ({loggedInToken}) => {
         <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
             <Typography variant="h6">Select Speciality :</Typography>
             <BasicSelect handleChange={handleChange} speciality={speciality} specialists={specialists}/>
-            {/* {speciality} */}
             <Box
                 sx={{
                     display: 'flex',
@@ -69,7 +74,7 @@ const DoctorList = ({loggedInToken}) => {
                     },
                 }}
             >
-                {doctorsList.filter(doctorObj => doctorObj.speciality.includes(speciality)).map(doctor => (
+                {doctorsList.map(doctor => (
                     <Paper key={doctor.id} elevation={5} align="left" style={{margin:15,padding:20,cursor: "pointer"}} >
                         <Typography variant="h6" style={{paddingBottom:10}}>
                             Doctor Name : {doctor.firstName} {doctor.lastName}

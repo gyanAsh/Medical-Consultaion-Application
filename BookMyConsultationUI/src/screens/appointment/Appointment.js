@@ -27,7 +27,9 @@ const Appointment = ({ loggedInToken }) => {
 
     useEffect(() => {
         getAppointments();
-    })
+    },[loggedInToken])
+
+    
 
     const getAppointments = () => {
         if (loggedInToken == null || loggedInUser==null)
@@ -46,7 +48,7 @@ const Appointment = ({ loggedInToken }) => {
     return (
         <div>
             {(loggedInToken == null) && <Typography variant="h3" align="center">Login to see appointments</Typography>}
-            {!(loggedInToken == null) && appointments.map(appointment => (
+            {(loggedInToken != null) && appointments.map(appointment => (
                 <Paper key={appointment.appointmentId} elevation={5} align="left" style={{ width:"90%",margin:15,padding:20,cursor: "pointer"}}>
                     <Typography variant="h6" style={{ paddingLeft: 11, paddingRight: 11 }}>Dr: {appointment.doctorName}</Typography>
                     <Typography variant="h6" style={{ paddingLeft: 11, paddingRight: 11 }}>Date: {appointment.appointmentDate} </Typography>
